@@ -3,7 +3,7 @@ import { ref } from "vue";
 
 // Shared interfaces
 interface User {
-  id: string;
+  id: number;
   name?: string;
   email: string;
   token?: string;
@@ -24,7 +24,18 @@ export const useAuthStore = defineStore("auth", () => {
   const isLoading = ref(false);
   const error = ref<string | null>(null);
 
-  // Shared methods
+  // Initialize user from localStorage if available
+  const storedUser = localStorage.getItem("authUser");
+  try {
+    if (storedUser && storedUser !== "undefined") {
+      user.value = JSON.parse(storedUser);
+    }
+  } catch (e) {
+    console.warn("Failed to parse stored user:", e);
+    localStorage.removeItem("authUser");
+  }
+
+  // Shared method
   const handleRequest = async (
     url: string,
     body: object
@@ -45,11 +56,18 @@ export const useAuthStore = defineStore("auth", () => {
         throw new Error(data.error || "Request failed");
       }
 
-      user.value = data.data;
+      // Expecting the user object inside `data.user`
+      const loggedInUser: User = data.user;
+
+      user.value = loggedInUser;
+
+      // Save user to localStorage
+      localStorage.setItem("authUser", JSON.stringify(loggedInUser));
+
       return {
         success: true,
-        message: "Operation successful",
-        data: data.data,
+        message: data.message || "Operation successful",
+        data: loggedInUser,
       };
     } catch (err: any) {
       error.value = err.message;
@@ -80,15 +98,13 @@ export const useAuthStore = defineStore("auth", () => {
 
   const logout = () => {
     user.value = null;
+    localStorage.removeItem("authUser");
   };
 
   return {
-    // State
     user,
     isLoading,
     error,
-
-    // Actions
     signup,
     login,
     logout,

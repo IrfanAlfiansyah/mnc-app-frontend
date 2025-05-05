@@ -5,7 +5,11 @@
         <!-- Logo Section -->
         <div class="flex-shrink-0 flex items-center">
           <router-link to="/">
-            <img class="h-8 w-auto" src="./../../assets/images/logo.png" alt="Your Logo" />
+            <img
+              class="h-8 w-auto"
+              src="./../../assets/images/logo.png"
+              alt="Your Logo"
+            />
           </router-link>
         </div>
 
@@ -133,8 +137,8 @@
   </header>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref } from "vue";
+<script setup lang="ts">
+import { ref } from "vue";
 import {
   MagnifyingGlassIcon,
   Bars3Icon,
@@ -146,47 +150,28 @@ interface NavigationItem {
   path: string;
 }
 
-export default defineComponent({
-  name: "AppHeader",
-  components: {
-    MagnifyingGlassIcon,
-    Bars3Icon,
-    XMarkIcon,
-  },
-  setup() {
-    const isUserDropdownOpen = ref(false);
-    const isMobileMenuOpen = ref(false);
+const isUserDropdownOpen = ref(false);
+const isMobileMenuOpen = ref(false);
 
-    const navigationItems: NavigationItem[] = [
-      { name: "Home", path: "/" },
-      { name: "Products", path: "/products" },
-      { name: "Services", path: "/services" },
-      { name: "About", path: "/about" },
-      { name: "Contact", path: "/contact" },
-    ];
+const navigationItems: NavigationItem[] = [
+  { name: "Home", path: "/" },
+  { name: "Products", path: "/products" },
+  { name: "Services", path: "/services" },
+  { name: "About", path: "/about" },
+  { name: "Contact", path: "/contact" },
+];
 
-    const toggleUserDropdown = () => {
-      isUserDropdownOpen.value = !isUserDropdownOpen.value;
-    };
+const toggleUserDropdown = () => {
+  isUserDropdownOpen.value = !isUserDropdownOpen.value;
+};
 
-    const toggleMobileMenu = () => {
-      isMobileMenuOpen.value = !isMobileMenuOpen.value;
-    };
+const toggleMobileMenu = () => {
+  isMobileMenuOpen.value = !isMobileMenuOpen.value;
+};
 
-    const logout = () => {
-      // Implement your logout logic here
-      console.log("Logging out...");
-      isUserDropdownOpen.value = false;
-    };
-
-    return {
-      navigationItems,
-      isUserDropdownOpen,
-      isMobileMenuOpen,
-      toggleUserDropdown,
-      toggleMobileMenu,
-      logout,
-    };
-  },
-});
+const logout = () => {
+  // Implement your logout logic here
+  console.log("Logging out...");
+  isUserDropdownOpen.value = false;
+};
 </script>
