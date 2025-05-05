@@ -1,0 +1,25 @@
+{
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.1.5",
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.3",
+    "tailwindcss": "^4.1.5"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^6.7.2",
+    "@heroicons/vue": "^2.2.0",
+    "@vitejs/plugin-vue": "^5.2.3",
+    "flowbite": "^3.1.2",
+    "flowbite-vue": "^0.2.1",
+    "pinia": "^3.0.2",
+    "vite": "^5.2.3",
+    "vue-router": "^4.5.1"
+  },
+  "scripts": {
+    "tailwind:init": "tailwindcss init",
+    "dev": "vite",
+    "build": "vue-tsc && vite build",
+    "preview": "vite preview",
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore"
+  }
+}
